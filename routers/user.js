@@ -8,4 +8,25 @@ router.get('/users', async(req, res, next)=>{
     res.json(users)
 })
 
+router.post('/users/user', async (req, res, next) => {
+    try {
+       
+        const {email, password, fullName} = req.body
+        
+        if (!email || !password || !fullName) {
+            res.status(400).send("missing parameters");
+        } else {
+            const newUser = User.create({
+                email,
+                password,
+                fullName,
+              })
+              res.json(newUser);
+        }
+    } catch (error) {
+        console.log(error)
+    }
+    
+})
+
 module.exports = router;
